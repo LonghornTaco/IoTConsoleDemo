@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("CitizenSC.Console")]
+[assembly: AssemblyTitle("CitizenSC.DeviceSimulator")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("CitizenSC.Console")]
+[assembly: AssemblyProduct("CitizenSC.DeviceSimulator")]
 [assembly: AssemblyCopyright("Copyright ©  2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("0d5df189-156a-4330-9d9a-bd9901536404")]
+[assembly: Guid("d8cd1aac-0b82-460f-bef7-fdb6412e039e")]
 
 // Version information for an assembly consists of the following four values:
 //

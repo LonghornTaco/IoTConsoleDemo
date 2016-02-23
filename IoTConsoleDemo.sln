@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CitizenSC.Console", "CitizenSC.Console\CitizenSC.Console.csproj", "{0D5DF189-156A-4330-9D9A-BD9901536404}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CitizenSC.DeviceSimulator", "CitizenSC.DeviceSimulator\CitizenSC.DeviceSimulator.csproj", "{D8CD1AAC-0B82-460F-BEF7-FDB6412E039E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,10 +11,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{0D5DF189-156A-4330-9D9A-BD9901536404}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0D5DF189-156A-4330-9D9A-BD9901536404}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0D5DF189-156A-4330-9D9A-BD9901536404}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0D5DF189-156A-4330-9D9A-BD9901536404}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D8CD1AAC-0B82-460F-BEF7-FDB6412E039E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D8CD1AAC-0B82-460F-BEF7-FDB6412E039E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D8CD1AAC-0B82-460F-BEF7-FDB6412E039E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D8CD1AAC-0B82-460F-BEF7-FDB6412E039E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
