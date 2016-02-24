@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using CitizenSC.Common.Configuration;
 using CitizenSC.Common.Logging;
-using CitizenSC.EventHub.Configuration;
 using CitizenSC.Model;
 using Microsoft.Azure.Devices.Client;
 using Newtonsoft.Json;
@@ -25,7 +24,7 @@ namespace CitizenSC.EventHub
 
       public void SendMessage(int runTime, int distance)
       {
-         var deviceClient = DeviceClient.Create(_config.IotHubUri, new DeviceAuthenticationWithRegistrySymmetricKey(_config.IotDeviceName, _config.IotDeviceKey));
+         var deviceClient = DeviceClient.Create(_config.UriString, new DeviceAuthenticationWithRegistrySymmetricKey(_config.IotDeviceName, _config.IotDeviceKey));
 
          var messageString = JsonConvert.SerializeObject(new RunStatistics() { RunTime = runTime, Distance = distance });
          var message = new Message(Encoding.ASCII.GetBytes(messageString));

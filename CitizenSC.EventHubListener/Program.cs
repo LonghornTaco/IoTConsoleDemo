@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using CitizenSC.EventHubListener.Configuration;
+using CitizenSC.Common.Configuration;
 using CitizenSC.Model;
 using Microsoft.ServiceBus.Messaging;
 using Newtonsoft.Json;
@@ -25,8 +25,8 @@ namespace CitizenSC.EventHubListener
 
          Print("\nPlease wait while the Receivers are initialized...\n");
 
-         _config = new ListenerAppConfiguration();
-         _eventHubClient = EventHubClient.CreateFromConnectionString(_config.IotHubConnectionString, _config.IotHubEndpoint);
+         _config = new IoTAppConfiguration();
+         _eventHubClient = EventHubClient.CreateFromConnectionString(_config.ConnectionString, _config.IotHubEndpoint);
          var partitions = _eventHubClient.GetRuntimeInformation().PartitionIds;
          foreach (string partition in partitions)
          {
