@@ -3,99 +3,84 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Microsoft.Azure.Devices.Client;
-using Newtonsoft.Json;
+using CitizenSC.Common.Configuration;
+using CitizenSC.Common.Logging;
+using CitizenSC.DeviceSimulator.IotDevices;
+using CitizenSC.EventHub;
 
 namespace CitizenSC.DeviceSimulator
 {
    class Program
    {
+      private static IDiagnosticController _diagnosticController;
+      private static IEventHubService _eventHubService;
+      private static ILogger _log;
+
       static void Main(string[] args)
       {
-         Console.WriteLine("###########################################");
-         Console.WriteLine("##   Welcome to my Simulated IoT Device! ##");
-         Console.WriteLine("##                                       ##");
-         Console.WriteLine("##   Inputs:                             ##");
-         Console.WriteLine("##      s - Start/Stop the device        ##");
-         Console.WriteLine("##      x - Close the application        ##");
-         Console.WriteLine("###########################################");
+         Initialize();
 
          ConsoleKeyInfo keyInfo;
          var keepApplicationRunning = true;
-         var isDeviceOn = false;
-         var lastStartTime = DateTime.MinValue;
-         var lastStopTime = DateTime.MinValue;
-         var yardsPerMinute = 176;
+
+         _diagnosticController.DeviceStopped += _diagnosticController_DeviceStopped;
 
          do
          {
-            keyInfo = Console.ReadKey();
-            Console.WriteLine();
-
+            keyInfo = Console.ReadKey(true);
             switch (keyInfo.Key)
             {
                case ConsoleKey.S:
-                  isDeviceOn = !isDeviceOn;
-                  if (isDeviceOn)
+                  if (!_diagnosticController.IsDeviceRunning)
                   {
-                     Console.WriteLine("Device started");
-                     lastStartTime = DateTime.Now;
+                     Print("\nDevice Started");
+                     _diagnosticController.Start();
                   }
                   else
                   {
-                     Console.WriteLine("Device stopped");
-                     lastStopTime = DateTime.Now;
-
-                     var report = new RunReport();
-                     if (lastStartTime < lastStopTime)
-                        report.RunTime = lastStopTime - lastStartTime;
-                     report.Distance = report.RunTime.Seconds * yardsPerMinute;
-
-                     Console.WriteLine("Device ran for " + report.RunTime.Seconds + " minutes");
-                     Console.WriteLine("Device traveled " + report.Distance + " yards");
-
-                     SendReport(report);
+                     Print("Device Stopped");
+                     _diagnosticController.Stop();
                   }
                   break;
                case ConsoleKey.X:
-                  if (isDeviceOn)
-                     Console.WriteLine("You cannot close the application while the device is running.  Please stop the device first.");
+                  if (_diagnosticController.IsDeviceRunning)
+                     Print("You cannot close the application while the device is running.  Please stop the device first.");
                   else
                      keepApplicationRunning = false;
                   break;
                default:
-                  Console.WriteLine("Invalid user input");
+                  Print("Invalid user input");
                   break;
             }
 
          } while (keepApplicationRunning);
       }
 
-      static void SendReport(RunReport report)
+      private static void _diagnosticController_DeviceStopped(object sender, DeviceStoppedEventArgs e)
       {
-         var iotHubUri = "SitecoreIoTDemo.azure-devices.net";
-         var deviceKey = "n5NR+pHWeEXN3IV0+acWoa72AtnRibSnYKKaHbgDMn4=";
-         var deviceClient = DeviceClient.Create(iotHubUri, new DeviceAuthenticationWithRegistrySymmetricKey("beau-Duino", deviceKey));
-
-         var messageString = JsonConvert.SerializeObject(new { RunTime = report.RunTime.Seconds, Distance = report.Distance });
-         var message = new Message(Encoding.ASCII.GetBytes(messageString));
-
-         try
-         {
-            Console.WriteLine("Sending event to Azure");
-            deviceClient.SendEventAsync(message).Wait();
-            Console.WriteLine("Message sent successfully!");
-         }
-         catch (Exception ex)
-         {
-            Console.WriteLine("There was a problem sending the event to Azure:\n" + ex.Message);
-         }
+         Print("\tRun Time:\t" + e.RunTime.Seconds + " hours");
+         Print("\tDistance:\t" + e.Distance + " miles");
+         _eventHubService.SendMessage(e.RunTime.Seconds, e.Distance);
       }
-   }
 
-   public class RunReport
-   {
-      public TimeSpan RunTime { get; set; }
-      public int Distance { get; set; }
+      private static void Initialize()
+      {
+         _log = new IotLogger();
+         _diagnosticController = new Lawnmower(_log);
+         _eventHubService = new IotEventHubService(_log);
+
+         Print("#############################################");
+         Print("##   Welcome to my Simulated IoT Device!   ##");
+         Print("##                                         ##");
+         Print("##   Inputs:                               ##");
+         Print("##      s - Start/Stop the device          ##");
+         Print("##      x - Close the application          ##");
+         Print("#############################################");
+      }
+
+      private static void Print(string message)
+      {
+         Console.WriteLine(message);
+      }
    }
 }
