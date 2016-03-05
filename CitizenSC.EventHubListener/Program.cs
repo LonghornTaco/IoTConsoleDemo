@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using CitizenSC.Common.Configuration;
@@ -50,7 +52,30 @@ namespace CitizenSC.EventHubListener
             string data = Encoding.UTF8.GetString(eventData.GetBytes());
             var statistics = JsonConvert.DeserializeObject<RunStatistics>(data);
 
-            Print(string.Format("Message received.\n\tRun Time:\t{0} hours\n\tDistance:\t{1} miles\n", statistics.RunTime, statistics.Distance));
+            Print(string.Format("Message received.\n\tIdentifier:\t{0}\n\tRun Time:\t{1} hours\n\tDistance:\t{2} miles\n\tTime Stamp:\t{3}", statistics.Identifier, statistics.RunTime, statistics.Distance, statistics.TimeStamp));
+
+            Print("Sending data to Sitecore");
+            //using (var client = new HttpClient())
+            //{
+            //   // New code:
+            //   client.BaseAddress = new Uri(_config.EntityServiceBaseUri);
+            //   client.DefaultRequestHeaders.Accept.Clear();
+            //   client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+            //   var runData = new RunStatistics()
+            //   {
+            //      Identifier = statistics.Identifier,
+            //      RunTime = statistics.RunTime,
+            //      Distance = statistics.Distance,
+            //      TimeStamp = statistics.TimeStamp
+            //   };
+            //   var response = await client.PostAsJsonAsync<RunStatistics>(_config.EntityServicePostEndpoint, runData);
+
+            //   if (response.IsSuccessStatusCode)
+            //      Print("The message was successfully sent to Sitecore");
+            //   else
+            //      Print("There was a problem sending the data to Sitecore");
+            //}
          }
       }
 

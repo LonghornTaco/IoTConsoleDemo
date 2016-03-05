@@ -1,0 +1,211 @@
+﻿<Window x:Class="CitizenSC.WPF.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CitizenSC.WPF"
+        xmlns:Common="clr-namespace:CitizenSC.WPF.Common"
+        mc:Ignorable="d" Title="MainWindow" Height="880" Width="1200" WindowStartupLocation="CenterScreen">
+   
+   <Window.Resources>
+      <Style TargetType="{x:Type ComboBox}">
+         <Setter Property="Margin" Value="0 5 5 5" />
+         <Setter Property="Height" Value="30" />
+         <Setter Property="VerticalContentAlignment" Value="Center" />
+      </Style>
+      <Style TargetType="{x:Type TextBox}">
+         <Setter Property="Margin" Value="0 0 5 5" />
+         <Setter Property="Height" Value="30" />
+         <Setter Property="VerticalContentAlignment" Value="Center" />
+      </Style>
+      <Style TargetType="{x:Type ListBox}">
+         <Setter Property="VerticalContentAlignment" Value="Stretch" />
+         <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+         <Setter Property="Height" Value="558" />
+         <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
+         <Setter Property="ScrollViewer.CanContentScroll" Value="True" />
+      </Style>
+      <Style TargetType="{x:Type Label}">
+         <Setter Property="VerticalAlignment" Value="Center" />
+      </Style>
+      <Style TargetType="{x:Type Button}">
+         <Setter Property="Margin" Value="5 0 5 5" />
+         <Setter Property="Width" Value="Auto" />
+         <Setter Property="Height" Value="30" />
+      </Style>
+      <Style TargetType="{x:Type Slider}">
+         <Setter Property="VerticalAlignment" Value="Center" />
+         <Setter Property="IsSnapToTickEnabled" Value="True" />
+         <Setter Property="TickFrequency" Value="1" />
+      </Style>
+   </Window.Resources>
+
+   <Grid Margin="20">
+      <Grid.RowDefinitions>
+         <RowDefinition Height="Auto" />
+         <RowDefinition Height="Auto" />
+         <RowDefinition Height="Auto" />
+      </Grid.RowDefinitions>
+
+      <GroupBox Grid.Row="0" Header="Settings" Visibility="Collapsed">
+         <Grid>
+            <Grid.RowDefinitions>
+               <RowDefinition />
+               <RowDefinition />
+               <RowDefinition />
+               <RowDefinition />
+               <RowDefinition />
+               <RowDefinition />
+               <RowDefinition />
+               <RowDefinition />
+               <RowDefinition />
+               <RowDefinition />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+               <ColumnDefinition Width="200" />
+               <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Label Grid.Row="0" Grid.Column="0" Content="IoT Hub Name" />
+            <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding IoTHubName}" />
+
+            <Label Grid.Row="1" Grid.Column="0" Content="Shared Access Key" />
+            <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding SharedAccessKey}" />
+
+            <Label Grid.Row="2" Grid.Column="0" Content="IoT Device Name" />
+            <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding IoTDeviceName}" />
+
+            <Label Grid.Row="3" Grid.Column="0" Content="IoT Device Key" />
+            <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding IoTDeviceKey}" />
+
+            <Label Grid.Row="4" Grid.Column="0" Content="Shared Access Key Name" />
+            <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding SharedAccessKeyName}" />
+
+            <Label Grid.Row="5" Grid.Column="0" Content="IoT Hub Endpoint" />
+            <TextBox Grid.Row="5" Grid.Column="1" Text="{Binding IoTHubEndpoint}" />
+
+            <Label Grid.Row="6" Grid.Column="0" Content="Connection String" />
+            <TextBox Grid.Row="6" Grid.Column="1" Text="{Binding ConnectionString}" />
+
+            <Label Grid.Row="7" Grid.Column="0" Content="UriString" />
+            <TextBox Grid.Row="7" Grid.Column="1" Text="{Binding UriString}" />
+
+            <Label Grid.Row="8" Grid.Column="0" Content="Entity Service Base Uri" />
+            <TextBox Grid.Row="8" Grid.Column="1" Text="{Binding EntityServiceBaseUri}" />
+
+            <Label Grid.Row="9" Grid.Column="0" Content="Entity Service POST Endpoint" />
+            <TextBox Grid.Row="9" Grid.Column="1" Text="{Binding EntityServicePostEndpoint}" />
+         </Grid>
+      </GroupBox>
+
+      <Grid Grid.Row="1" Margin="0 20 0 0">
+         <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+         </Grid.ColumnDefinitions>
+
+         <GroupBox Grid.Column="0" Header="Cycling" Margin="0 0 10 0">
+            <Grid>
+               <Grid.RowDefinitions>
+                  <RowDefinition />
+                  <RowDefinition />
+                  <RowDefinition />
+                  <RowDefinition />
+               </Grid.RowDefinitions>
+               <Grid.ColumnDefinitions>
+                  <ColumnDefinition Width="110" />
+                  <ColumnDefinition Width="*" />
+                  <ColumnDefinition Width="30" />
+               </Grid.ColumnDefinitions>
+
+               <Label Grid.Row="0" Grid.Column="0" Content="Contact" />
+               <ComboBox Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" ItemsSource="{Binding Contacts}" SelectedItem="{Binding SelectedCyclist}" />
+
+               <Label Grid.Row="1" Grid.Column="0" Content="Distance (miles)" />
+               <Slider Grid.Row="1" Grid.Column="1" Value="{Binding CyclingDistance}" Minimum="1" Maximum="90" />
+               <TextBox Grid.Row="1" Grid.Column="2" Text="{Binding CyclingDistance}" HorizontalContentAlignment="Center" />
+
+               <Label Grid.Row="2" Grid.Column="0" Content="Avg. Speed (mph)" />
+               <Slider Grid.Row="2" Grid.Column="1" Value="{Binding CyclingAverageSpeed}" Minimum="3" Maximum="30" />
+               <TextBox Grid.Row="2" Grid.Column="2" Text="{Binding CyclingAverageSpeed}" HorizontalContentAlignment="Center" />
+
+               <Button Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" Content="Send Cycling Data" Command="{Binding SendCyclingData}" IsEnabled="{Binding AreButtonsActive}" />
+            </Grid>
+         </GroupBox>
+
+         <GroupBox Grid.Column="1" Header="Running" Margin="10 0 10 0">
+            <Grid>
+               <Grid.RowDefinitions>
+                  <RowDefinition />
+                  <RowDefinition />
+                  <RowDefinition />
+                  <RowDefinition />
+               </Grid.RowDefinitions>
+               <Grid.ColumnDefinitions>
+                  <ColumnDefinition Width="110" />
+                  <ColumnDefinition Width="*" />
+                  <ColumnDefinition Width="30" />
+               </Grid.ColumnDefinitions>
+
+               <Label Grid.Row="0" Grid.Column="0" Content="Contact" />
+               <ComboBox Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" ItemsSource="{Binding Contacts}" SelectedItem="{Binding SelectedRunner}" />
+
+               <Label Grid.Row="1" Grid.Column="0" Content="Distance (miles)" />
+               <Slider Grid.Row="1" Grid.Column="1" Value="{Binding RunningDistance}" Minimum="1" Maximum="20" />
+               <TextBox Grid.Row="1" Grid.Column="2" Text="{Binding RunningDistance}" HorizontalContentAlignment="Center" />
+
+               <Label Grid.Row="2" Grid.Column="0" Content="Duration (minutes)" />
+               <Slider Grid.Row="2" Grid.Column="1" Value="{Binding RunningDuration}" Minimum="20" Maximum="120" />
+               <TextBox Grid.Row="2" Grid.Column="2" Text="{Binding RunningDuration}" HorizontalContentAlignment="Center" />
+
+               <Button Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" Content="Send Running Data" Command="{Binding SendRunningData}" IsEnabled="{Binding AreButtonsActive}" />
+            </Grid>
+         </GroupBox>
+
+         <GroupBox Grid.Column="2" Header="Swimming" Margin="10 0 0 0">
+            <Grid>
+               <Grid.RowDefinitions>
+                  <RowDefinition />
+                  <RowDefinition />
+                  <RowDefinition />
+                  <RowDefinition />
+               </Grid.RowDefinitions>
+               <Grid.ColumnDefinitions>
+                  <ColumnDefinition Width="110" />
+                  <ColumnDefinition Width="*" />
+                  <ColumnDefinition Width="30" />
+               </Grid.ColumnDefinitions>
+
+               <Label Grid.Row="0" Grid.Column="0" Content="Contact" />
+               <ComboBox Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" ItemsSource="{Binding Contacts}" SelectedItem="{Binding SelectedSwimmer}" />
+
+               <Label Grid.Row="1" Grid.Column="0" Content="Distance (miles)" />
+               <Slider Grid.Row="1" Grid.Column="1" Value="{Binding SwimmingDistance}" Minimum="0.1" Maximum="3" TickFrequency="0.1" />
+               <TextBox Grid.Row="1" Grid.Column="2" Text="{Binding SwimmingDistance}" HorizontalContentAlignment="Center" />
+
+               <TextBox Grid.Row="2" Grid.Column="2" HorizontalContentAlignment="Center" Visibility="Hidden" />
+
+               <Button Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" Content="Send Swimming Data" Command="{Binding SendSwimmingData}" IsEnabled="{Binding AreButtonsActive}" />
+            </Grid>
+         </GroupBox>
+      </Grid>
+
+      <Grid Grid.Row="2" Margin="0 20 0 0">
+         <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+         </Grid.RowDefinitions>
+         <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+         </Grid.ColumnDefinitions>
+
+         <ListBox Grid.Row="0" Grid.Column="0" Margin="0 0 5 0" ItemsSource="{Binding SendLog}" Common:ListBoxExtenders.AutoScrollToEnd="True" />
+         <ListBox Grid.Row="0" Grid.Column="1" Margin="5 0 0 0" ItemsSource="{Binding ReceiveLog}" Common:ListBoxExtenders.AutoScrollToEnd="True" />
+
+         <Button Grid.Row="1" Grid.Column="0" Command="{Binding ClearSendLog}" Content="Clear Send Log" Margin="0 5 5 0" />
+         <Button Grid.Row="1" Grid.Column="1" Command="{Binding ClearReceiveLog}" Content="Clear Receive Log" Margin="5 5 0 0" />
+      </Grid>
+   </Grid>
+</Window>

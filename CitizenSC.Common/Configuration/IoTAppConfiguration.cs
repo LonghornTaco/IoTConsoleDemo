@@ -22,6 +22,10 @@ namespace CitizenSC.Common.Configuration
       public string ConnectionString { get { return String.Format(ConnectionStringFormat, IoTHubName, SharedAccessKeyName, SharedAccessKey); } }
       public string UriString { get { return String.Format(UriStringFormat, IoTHubName); } }
 
+      public string ContactIdentifier { get { return GetValue<string>("ContactIdentifier"); } }
+      public string EntityServiceBaseUri { get { return GetValue<string>("EntityServiceBaseUri"); } }
+      public string EntityServicePostEndpoint { get { return GetValue<string>("EntityServicePostEndpoint"); } }
+
       private T GetValue<T>(string key)
       {
          var returnValue = default(T);

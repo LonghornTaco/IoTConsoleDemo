@@ -4,40 +4,34 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CitizenSC.Common.Configuration;
-using CitizenSC.Common.Logging;
-using CitizenSC.Model;
+using CitizenSC.WPF.Models;
 using Microsoft.Azure.Devices.Client;
 using Newtonsoft.Json;
 
-namespace CitizenSC.EventHub
+namespace CitizenSC.WPF.Services
 {
    public class IotEventHubService : IEventHubService
    {
-      private readonly ILogger _log;
       private readonly IAppConfiguration _config;
 
-      public IotEventHubService(ILogger log)
+      public IotEventHubService()
       {
          _config = new IoTAppConfiguration();
-         _log = log;
       }
 
-      public void SendMessage(int runTime, int distance, string timeStamp)
+      public void SendMessage(SportData data)
       {
          var deviceClient = DeviceClient.Create(_config.UriString, new DeviceAuthenticationWithRegistrySymmetricKey(_config.IotDeviceName, _config.IotDeviceKey));
 
-         var messageString = JsonConvert.SerializeObject(new RunStatistics() { RunTime = runTime, Distance = distance, Identifier = _config.ContactIdentifier, TimeStamp = timeStamp });
+         var messageString = JsonConvert.SerializeObject(data);
          var message = new Message(Encoding.ASCII.GetBytes(messageString));
 
          try
          {
-            _log.Log("Sending event to Azure");
             deviceClient.SendEventAsync(message).Wait();
-            _log.Log("Message sent successfully!");
          }
          catch (Exception ex)
          {
-            _log.Log("There was a problem sending the event to Azure:\n" + ex.Message);
          }
       }
    }

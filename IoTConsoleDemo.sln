@@ -20,6 +20,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{401403
 		App.config = App.config
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CitizenSC.WPF", "CitizenSC.WPF\CitizenSC.WPF.csproj", "{5B670BB2-17F9-4561-8851-328498858A99}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -50,6 +52,10 @@ Global
 		{E6119DB4-E761-433C-A9D6-5F9ED7E5B8B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E6119DB4-E761-433C-A9D6-5F9ED7E5B8B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E6119DB4-E761-433C-A9D6-5F9ED7E5B8B2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5B670BB2-17F9-4561-8851-328498858A99}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5B670BB2-17F9-4561-8851-328498858A99}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5B670BB2-17F9-4561-8851-328498858A99}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5B670BB2-17F9-4561-8851-328498858A99}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

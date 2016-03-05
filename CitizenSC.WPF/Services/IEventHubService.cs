@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CitizenSC.WPF.Models;
 
-namespace CitizenSC.EventHub
+namespace CitizenSC.WPF.Services
 {
    public interface IEventHubService
    {
-      void SendMessage(int runTimeInMinutes, int distance, string timeStamp);
+      void SendMessage(SportData data);
    }
 }

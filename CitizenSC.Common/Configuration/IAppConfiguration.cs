@@ -18,5 +18,9 @@ namespace CitizenSC.Common.Configuration
 
       string ConnectionString { get; }
       string UriString { get; }
+
+      string ContactIdentifier { get; }
+      string EntityServiceBaseUri { get; }
+      string EntityServicePostEndpoint { get; }
    }
 }

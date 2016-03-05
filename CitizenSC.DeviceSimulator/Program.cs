@@ -15,6 +15,7 @@ namespace CitizenSC.DeviceSimulator
       private static IDiagnosticController _diagnosticController;
       private static IEventHubService _eventHubService;
       private static ILogger _log;
+      private static IAppConfiguration _config;
 
       static void Main(string[] args)
       {
@@ -58,15 +59,18 @@ namespace CitizenSC.DeviceSimulator
 
       private static void _diagnosticController_DeviceStopped(object sender, DeviceStoppedEventArgs e)
       {
+         Print("\tIdentifier:\t" + e.Identifier);
          Print("\tRun Time:\t" + e.RunTime.Seconds + " hours");
          Print("\tDistance:\t" + e.Distance + " miles");
-         _eventHubService.SendMessage(e.RunTime.Seconds, e.Distance);
+         Print("\tTime Stamp:\t" + e.TimeStamp);
+         _eventHubService.SendMessage(e.RunTime.Seconds, e.Distance, e.TimeStamp);
       }
 
       private static void Initialize()
       {
          _log = new IotLogger();
-         _diagnosticController = new Lawnmower(_log);
+         _config = new IoTAppConfiguration();
+         _diagnosticController = new Lawnmower(_log, _config.ContactIdentifier);
          _eventHubService = new IotEventHubService(_log);
 
          Print("#############################################");

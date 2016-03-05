@@ -10,6 +10,7 @@ namespace CitizenSC.DeviceSimulator.IotDevices
    public class Lawnmower : IDiagnosticController
    {
       private readonly ILogger _log;
+      private readonly string _identifier;
 
       public event EventHandler<DeviceStoppedEventArgs> DeviceStopped;
 
@@ -18,9 +19,10 @@ namespace CitizenSC.DeviceSimulator.IotDevices
       private DateTime _lastStartTime = DateTime.MinValue;
       private DateTime _lastStopTime = DateTime.MinValue;
 
-      public Lawnmower(ILogger log)
+      public Lawnmower(ILogger log, string identifier)
       {
          _log = log;
+         _identifier = identifier;
       }
 
       public void Start()
@@ -37,7 +39,7 @@ namespace CitizenSC.DeviceSimulator.IotDevices
       private void OnDeviceStopped()
       {
          if (DeviceStopped != null)
-            DeviceStopped(this, new DeviceStoppedEventArgs(_lastStopTime - _lastStartTime));
+            DeviceStopped(this, new DeviceStoppedEventArgs(_lastStopTime - _lastStartTime, _identifier, _lastStopTime.ToString("MM/dd/yyyy hh:mm:ss tt")));
       }
 
       private void ToggleState()
